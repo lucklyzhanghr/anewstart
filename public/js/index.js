@@ -1,5 +1,5 @@
 // 等页面加载完成开始执行
-window.onload = function() {
+window.onpageshow = function() {
 	let dataArr = [];
 
 	getAll();
