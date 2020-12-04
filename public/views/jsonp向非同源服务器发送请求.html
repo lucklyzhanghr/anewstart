@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="myAjax.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="">
+			<button type="button" class="mui-btn mui-btn-blue mui-btn-outlined btn">发送jsonp请求</button>
+		</div>
+	</body>
+	<script type="text/javascript">
+		let btn = document.querySelector('.btn');
+		btn.addEventListener('click', function() {
+			// let sc = document.createElement('script');
+			// console.log(sc);
+			// 向3000端口发送jsonp请求
+			jsonp({
+				url: 'http://localhost:3000/testJsonp?callback=',
+				data: {
+					film: '我和我的祖国',
+					dy: '很多人'
+				},
+				success: function(data) {
+					console.log(data);
+					// console.log(data.name);
+				}
+			})
+
+		})
+	</script>
+</html>

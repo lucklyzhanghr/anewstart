@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="assets/bootstrap/dist/css/bootstrap.min.css" />
+		<script src="myAjax.js" type="text/javascript" charset="utf-8"></script>
+		<title></title>
+		<style type="text/css">
+			.container {
+				padding-top: 60px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<form id="loginForm">
+				<div class="form-group">
+					<label>用户名</label>
+					<input type="text" name="username" class="form-control" placeholder="请输入用户名">
+				</div>
+				<div class="form-group">
+					<label>密码</label>
+					<input type="password" name="password" class="form-control" placeholder="请输入用密码">
+				</div>
+				<input type="button" class="btn btn-default" value="登录" id="loginBtn">
+				<input type="button" class="btn btn-default" value="检测用户登录状态" id="checkLogin">
+			</form>
+		</div>
+	</body>
+	<script type="text/javascript">
+		// 登录验证功能
+		let loginBtn = document.querySelector('#loginBtn');
+		let loginForm = document.querySelector('#loginForm');
+		loginBtn.onclick = function() {
+			let formData = new FormData(loginForm);
+			// FormData对象转json对象
+			// let dataObj = {};
+			// formData.forEach((value,key)=>{
+			// 	dataObj[key] = value;
+			// })
+			let dataObj = formDataToObject(formData);
+			// 发送ajax请求验证账号密码
+			myAjax({
+				type: 'post',
+				withCredentials: true,  // 是否允许跨域携带cookie,如开启需要服务端也开启
+				url: 'http://localhost:3000/login',
+				data: dataObj,
+				success: function(result){
+					alert(result);
+				}
+			})
+		}
+		
+		// 检测用户登录状态
+		
+		
+	</script>
+</html>

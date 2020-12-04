@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<style type="text/css">			
+			.upload {
+				position: relative;
+			}
+			.status {
+				margin-top: 20px;
+			}
+			.speed {
+				float: left;
+				position: absolute;
+				margin-left: 30px;
+			}
+		</style>
+		<script src="myAjax.js" type="text/javascript" charset="utf-8"></script>
+		<script src="upload.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="upload">
+		<input type="file" name="upload" id="upload" value="" />
+		<button type="button" id="up">点击我上传文件</button>
+		</div>
+		<div class="status">
+			上传进度 <progress class="progress" value="0" max="100"></progress>
+			<span id="rate"></span>
+			<span>
+				上传速度: <span class="speed"></span>
+			</span>
+		</div>	
+		<button type="button" style="margin-top: 20px;" id="abortUpload">取消上传</button>
+	</body>
+</html>

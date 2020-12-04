@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="assets/bootstrap/dist/css/bootstrap.min.css" />
+		<script src="myAjax.js" type="text/javascript" charset="utf-8"></script>
+		<script src="template-web.js" type="text/javascript" charset="utf-8"></script>
+
+		<style type="text/css">
+			.container {
+				padding-top: 60px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<table class="table table-striped table-hover" align="center" id="box">
+				<tr>
+					<th>时间</th>
+					<th>温度</th>
+					<th>天气</th>
+					<th>风向</th>
+					<th>风力</th>
+				</tr>
+			</table>
+		</div>
+		<script type="text/html" id="tpl">
+			<tr>
+				<th>时间</th>
+				<th>温度</th>
+				<th>天气</th>
+				<th>风向</th>
+				<th>风力</th>
+			</tr>
+			{{each info}}
+			<tr>
+				<td>{{formatDate($value.update_time)}}</td>
+				<td>{{$value.degree}}</td>
+				<td>{{$value.weather}}</td>
+				<td>{{$value.wind_direction}}</td>
+				<td>{{$value.wind_power}}</td>
+			</tr>
+			{{/each}}
+		</script>
+	</body>
+	<script type="text/javascript">
+		let table = document.querySelector('#box');
+		console.log(typeof null);
+		template.defaults.imports.formatDate = formatDate;
+		jsonp({
+			url: 'https://wis.qq.com/weather/common?callback=',
+			data: {
+				source: 'pc',
+				weather_type: 'forecast_1h',
+				// weather_type: 'forecast_1h|forecast_24h' // 
+				province: '河南省',
+				city: '郑州市'
+			},
+			success: function(data) {
+				if (data.status === 200) {
+					// 请求成功渲染页面
+					let html = template('tpl', {
+						info: data.data.forecast_1h
+					});
+					table.innerHTML = html;
+				}
+			}
+		})
+
+		function formatDate(date) {
+			let year = date.substr(0, 4);
+			let month = date.substr(4, 2);
+			let day = date.substr(6, 2);
+			let hour = date.substr(8, 2);
+			let minute = date.substr(10, 2);
+			let seconds = date.substr(12, 2);
+			
+			return year + '年' + month + '月' + day + '日 ' + hour + ':' + minute + seconds;
+		}
+	</script>
+</html>
